@@ -73,10 +73,11 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                     </svg>
-                                                </a>` +
+                        </a>` +
                         `<img style="width: ${placeholderImageWidth}; margin: 0 auto; vertical-align: middle;" data-jubaerindexi="${count}" src="${placeholderImageTarget}" class="jubaer_image_placeholder" /> ` +
                         `<img style="width: 100%; vertical-align: middle; display:none;" class="img_" data-jubaerindeximage="${count}"/>`+
                         `<video style="width: 100%; display:none;" class="video_" data-jubaerindexvideo="${count}" controls></video>` +
+                        `<audio style="width: 100%; display:none;" class="audio_" data-jubaerindexaudio="${count}" controls></audio>` +
                         `<input class="form-control jubaer_image_input"  data-jubaerindexinput="${count}" style="display : none"  name="${fieldName}" type="file">` +
                         `</label> ` +
                     `</div>` +
@@ -97,16 +98,13 @@
          */
         function loadMedia(settings, input, parent) {
             var index = $(input).data("jubaerindexinput");
-
             if (input.files && input.files[0]) {
+
                 var file_select = input.files[0];
                 var allowedExt = settings.allowedExt;
                 var maxFileSize = settings.maxFileSize;
 
-                if (
-                    isFileTypeAllowed(file_select, allowedExt) &&
-                    isFileSizeAllowed(file_select, maxFileSize)
-                ) {
+                if (isFileTypeAllowed(file_select, allowedExt) && isFileSizeAllowed(file_select, maxFileSize) ) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         if (file_select.type.startsWith("image")) {
@@ -130,6 +128,9 @@
                                         '"]'
                                 )
                                 .hide();
+                                $(parent)
+                                .find('audio[data-jubaerindexaudio="' + index + '"]')
+                                .hide();
                         } else if (file_select.type.startsWith("video")) {
                             $(parent)
                                 .find(
@@ -146,6 +147,35 @@
                                 .show();
                             $(parent)
                                 .find('img[data-jubaerindexi="' + index + '"]')
+                                .hide();
+                            $(parent)
+                                .find('audio[data-jubaerindexaudio="' + index + '"]')
+                                .hide();
+
+                        } else if(file_select.type.startsWith("audio")) {
+                            $(parent)
+                                .find(
+                                    'audio[data-jubaerindexaudio="' +
+                                        index +
+                                        '"]'
+                                )
+                                .attr("src", e.target.result)
+                                .show();
+                                $(parent)
+                                .find(
+                                    'a[data-jubaerindexremove="' + index + '"]'
+                                )
+                                .show();
+                            $(parent)
+                                .find('img[data-jubaerindexi="' + index + '"]')
+                                .hide();
+
+                            $(parent)
+                                .find(
+                                    'video[data-jubaerindexvideo="' +
+                                        index +
+                                        '"]'
+                                )
                                 .hide();
                         }
                         settings.onRenderedPreview.call(this, index);
@@ -174,17 +204,37 @@
                             addRow(settings, parent);
                         }
                     }
-                } else {
+                }
+
+                if (!isFileTypeAllowed(file_select, allowedExt)) {
+                    $(parent).find('input[data-jubaerindexinput="' + index + '"]').val("");
                     if (
                         $(parent)
                             .find('img[data-jubaerindeximage="' + index + '"]')
                             .is(":visible") == true
                     ) {
+
                         $(parent)
                             .find('img[data-jubaerindexi="' + index + '"]')
                             .hide();
+
                     }
                     settings.onExtensionErr.call(this, index, file_select);
+                    return false;
+                }else if (!isFileSizeAllowed(file_select, maxFileSize) ) {
+                    $(parent).find('input[data-jubaerindexinput="' + index + '"]').val("");
+                    if (
+                        $(parent)
+                            .find('img[data-jubaerindeximage="' + index + '"]')
+                            .is(":visible") == true
+                    ) {
+
+                        $(parent)
+                            .find('img[data-jubaerindexi="' + index + '"]')
+                            .hide();
+
+                    }
+                    settings.onSizeErr.call(this, index, file_select);
                     return false;
                 }
             }
