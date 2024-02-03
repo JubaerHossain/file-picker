@@ -25,7 +25,7 @@ Include jQuery and the Jubaer Image Picker Plugin script files in your HTML:
 HTML
 ```bash
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/JubaerHossain/filePicker@master/index.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/JubaerHossain/file-picker/file-picker.min.js"></script>
 ```
 Initialize the plugin on a container element:
 html
