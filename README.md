@@ -1,12 +1,13 @@
 # Jubaer File Picker Plugin
 
-The Jubaer Image Picker Plugin is a jQuery plugin that provides an easy-to-use interface for selecting and previewing image and video files. It allows users to add multiple file input fields dynamically and provides image previews for image files and video players for video files.
+The Jubaer File Picker Plugin is a jQuery plugin that provides an easy-to-use interface for selecting and previewing image, video and audio files. It allows users to add multiple file input fields dynamically and provides image previews for image files and video players for video files also audio players for audio files.
 
 ## Features
 
 - Add multiple file input fields dynamically.
 - Display image previews for image files.
 - Load video players for video files.
+- Load audio players for audio files.
 - Customize placeholder images and file input fields.
 - Direct upload support for files.
 - Callback functions for adding/removing rows and handling errors.
@@ -39,7 +40,7 @@ html
     $('#imagePickerContainer').jubaerImagePicker({
       placeholderImageTarget: 'placeholder.jpg',
       fieldName: 'file',
-      allowedExt: 'jpg,jpeg,png,gif,mp4,avi,mov',
+      allowedExt: 'jpg,jpeg,png,gif,mp4,avi,mov,mp3',
       maxFileSize: 5000, // in kilobytes
       maxCount: 5,
       directUpload: {
