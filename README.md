@@ -18,11 +18,8 @@ You can install the Jubaer Image Picker Plugin via npm or by downloading the sou
 
 
 
-### Direct download
-You can download the source files from the GitHub repository.
-
 ## Usage
-Include jQuery and the Jubaer Image Picker Plugin script files in your HTML:
+Include jQuery and the Jubaer File Picker Plugin script files in your HTML:
 HTML
 ```bash
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
