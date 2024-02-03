@@ -15,11 +15,7 @@ The Jubaer Image Picker Plugin is a jQuery plugin that provides an easy-to-use i
 
 You can install the Jubaer Image Picker Plugin via npm or by downloading the source files directly.
 
-### Via npm
 
-```bash
-npm install jubaer-image-picker
-```
 
 ### Direct download
 You can download the source files from the GitHub repository.
@@ -29,7 +25,7 @@ Include jQuery and the Jubaer Image Picker Plugin script files in your HTML:
 HTML
 ```bash
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="jubaer-image-picker.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/JubaerHossain/filePicker@master/index.js"></script>
 ```
 Initialize the plugin on a container element:
 html
